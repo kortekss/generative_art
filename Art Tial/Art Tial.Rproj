@@ -1,13 +1,23 @@
-Version: 1.0
+devtools::install_github("djnavarro/jasmines") 
 
-RestoreWorkspace: Default
-SaveWorkspace: Default
-AlwaysSaveHistory: Default
+library(tidyverse)
+library(jasmines)
 
-EnableCodeIndexing: Yes
-UseSpacesForTab: Yes
-NumSpacesForTab: 2
-Encoding: UTF-8
-
-RnwWeave: Sweave
-LaTeX: pdfLaTeX
+use_seed(500) %>%
+  entity_heart(grain = 4000) %>%
+  mutate(ind = 1:n()) %>%
+  unfold_warp(
+    iterations = 5,
+    scale = 0.5, 
+    output = "layer" 
+  ) %>%
+  unfold_tempest(
+    iterations = 15,
+    scale = 0.01
+  ) %>%
+  style_ribbon(
+    palette = palette_named("plasma"),
+    colour = "ind",
+    alpha = c(0.1, 0.1),
+    background = "#FFFFFF80"
+  )
